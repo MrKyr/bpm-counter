@@ -1,5 +1,7 @@
 # BPM - Counter for UNIX (c) by Marius Heuler 
 
+[![asciicast](https://asciinema.org/a/414554.svg)](https://asciinema.org/a/414554)
+
 This program can be distributed, if it's not modified in any kind.  
 
 The purpose if this program ist to calculate the bpm (beats  
@@ -46,8 +48,4 @@ manual of the times function (man times) or somewhere else.
            or heuler@cip.informatik.uni-wuerzburg.de
 
 ~~**WWW:**     http://www-info3.informatik.uni-wuerzburg.de./~heuler~~
-
-### Screenshot
-
-![bpm-screenshot](https://i.imgur.com/EaQxtLP.png)
 
