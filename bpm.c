@@ -1,45 +1,45 @@
 /*****************************************************************
- 
-   BPM - Counter for UNIX (c) by Marius Heuler 
- 
+
+   BPM - Counter for UNIX (c) by Marius Heuler
+
    This program can be distributed, if it's not modified in any kind.
 
-   The purpose if this program ist to calculate the bpm (beats 
-   per minute) rate of a song. The bpm rate is the "speed" of 
-   a song and is needed for DJing. With this program you can 
+   The purpose if this program ist to calculate the bpm (beats
+   per minute) rate of a song. The bpm rate is the "speed" of
+   a song and is needed for DJing. With this program you can
    easily calculate bpm by pressing a key for each beat.
    The program should run on all SYS V compatible unix systems.
    It was developed under Linux and tested with Solaris and OSF/1.
 
    Compilation:
-   
-      gcc bpm.c -o bpm -lcurses 
+
+      gcc bpm.c -o bpm -lcurses
    or cc  bpm.c -o bpm -lcurses
-  
+
    If you don't have curses library installed you can use
-   ncurses insteed. Then you must use -lncurses insteed of 
+   ncurses insteed. Then you must use -lncurses insteed of
    -lcurses and probably change the include <curses.h>
    to something like <ncurses/curses.h> or <ncurses.h>.
 
    If you don't have either curses or ncurses you can use
    #undef USE_CURSES insteed of #define USE_CURSES. But this
    is not recommended, because it will only work in xterms or
-   on terminals which ar vt100 compatible. Also the system must 
+   on terminals which ar vt100 compatible. Also the system must
    have termcap installed (on some BSD system you must use
    -ltermcap by compilation).
-    
+
    If you get an error about CLK_TCK ist undefined, you must it
    by hand with #define CLK_TCK ticks. For ticks you must use
-   the number of ticks per second, which is mentioned in the 
+   the number of ticks per second, which is mentioned in the
    manual of the times function (man times) or somewhere else.
-   
+
    Marius Heuler
 
    Send suggestions, problems or ... to:
-   
+
    Email:   heuler@informatik.uni-wuerzburg.de
          or heuler@cip.informatik.uni-wuerzburg.de
-   
+
    WWW:     http://www-info3.informatik.uni-wuerzburg.de./~heuler
 
 
@@ -75,16 +75,14 @@ int neu;
 struct tms dummy;
 
 
-char bigscr[] = 
+char bigscr[] =
 "  ###      #     #####   #####  #       #######  #####  #######  #####   #####  " \
 " #   #    ##    #     #       # #    #  #       #     # #    #  #     # #     # " \
 "#     #  # #          #       # #    #  #       #           #   #     # #     # " \
 "#     #    #     #####   #####  #    #  ######  ######     #     #####   ###### " \
 "#     #    #    #             # #######       # #     #   #     #     #       # " \
 " #   #     #    #             #      #  #     # #     #   #     #     # #     # " \
-"  ###    #####  #######  #####       #   #####   #####    #      #####   #####  "  
-;
-
+"  ###    #####  #######  #####       #   #####   #####    #      #####   #####  ";
 
 
 void bigwrite(x, y, c)
@@ -103,7 +101,7 @@ void bigwrite(x, y, c)
 
 void bigbpm()
 {
-  char buf[10];  
+  char buf[10];
 
   if (bpm<1) sprintf(buf, "%03.0f", 0.0);
   else       sprintf(buf, "%03.0f", bpm-0.5);
@@ -119,13 +117,13 @@ void display()
      bpm = (float)count * 60.0 * CLK_TCK / (float)(tcurr - tstart);
   } else {
      bpm = 0.0;
-  } 
+  }
   if (bpm > 0) {
      err = (60 * CLK_TCK / (float)(tcurr - tstart)) / bpm * 100;
      if (err > 99.99 ) err = 99.99;
   } else err = 0.0;
   sprintf(scr, "Time: %06.2fs        Beats: %04d",
-     (float)(tcurr - tstart) / CLK_TCK, count); 
+     (float)(tcurr - tstart) / CLK_TCK, count);
   move(5,5);
   addstr(scr);
   sprintf(scr, "BPM:  %06.1f +- %05.2f%%", bpm, err);
@@ -154,7 +152,7 @@ int main(void)
     tty.c_lflag &= ~ECHO;
     tcsetattr(0, TCSANOW, &tty);
 #endif
- 
+
   clear();
 
   count   = 0;
@@ -174,7 +172,7 @@ int main(void)
        move(14,1);
 #ifdef USE_CURSES
          refresh();
-	 endwin();
+         endwin();
 #else
        tty.c_lflag |= ICANON;
        tty.c_oflag |= ONLCR;
